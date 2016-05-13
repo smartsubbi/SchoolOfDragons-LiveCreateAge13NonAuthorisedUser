@@ -1,5 +1,7 @@
 package com.SchoolOfDragons.SchoolOfDragons_Live_CreateAge13NonAuthorisedUser;
 
+import java.net.InetAddress;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.ITestResult;
@@ -21,6 +23,7 @@ import Pages.CreateAnAccountPage;
 import Pages.SignUpPage;
 import ReUse.AuthoriseMailMailinator;
 import ReUse.SendMail;
+import ReUse.writeToTextFile;
 import Utility.CaptureScreenshot;
 import Utility.GetNewEmail;
 import Utility.RandomStringGenerator;
@@ -31,8 +34,7 @@ public class TestCase7
 	ExtentReports report;
 	ExtentTest logger;	
 	String age = "13";
-	int count = 0;
-	String pathToExcel = "file://172.20.11.105/Usernames%20Excels/";
+	int count = 0;	
 	String subject = "Create Age 13 Player (Non Authorized User)";
 	
 	@BeforeClass
@@ -47,7 +49,7 @@ public class TestCase7
 	{
 		logger = report.startTest("Test Case 7: School Of Dragons - Live - Create Age 13 Player (Non Authorized User) ","This will verify if user can create an non Authorized user with age 13").assignCategory("none");
 		
-		driver = BrowserFactory.getBrowser("chrome");
+		driver = BrowserFactory.getBrowser("firefox");
 		logger.log(LogStatus.INFO, "Browser is up and running");
 		String browserOpenedScreenshot=logger.addScreenCapture(CaptureScreenshot.takeScreenshot(driver, "browserOpenedScreenshot"));
 		logger.log(LogStatus.INFO, browserOpenedScreenshot);		
@@ -109,29 +111,43 @@ public class TestCase7
 		count = count +1;		
 		ExcelDataProvider excel = new ExcelDataProvider();	       
 		BrowserFactory.closeBrowser();		
-		logger.log(LogStatus.INFO, "Quitting the Browser Opened");			
+		logger.log(LogStatus.INFO, "Quitting the Browser Opened");
+		InetAddress address = InetAddress.getLocalHost(); 
+		String hostIP = address.getHostAddress();	 	    
+		String pathToExcel = "file://"+hostIP+"/Usernames%20Excels/";
 		if(count==1)
 		{
 			//WebDriver driver = BrowserFactory.getBrowser("chrome");		
 			String emailReportPathToSend = ExtentManager.finalPath;
-			//String mailContent = "Non authorised user has been created.\n\nYou can refer to the below report for the run result\n"+emailReportPathToSend+"\nBelow are the details of the non authorised user created : \n";
+			String mailContent = "Non authorised user has been created, You can refer to the below report for the run result. Below are the details of the non authorised user created : ";
 			excel.writeToNextFreeCell(2,0,userName);		
 			excel.writetoexcel();
 			//SendMail.sendMail(driver,subject,mailContent,age,userName,"123456",emailAddress,"No");
+			
+			String Line1 = mailContent;
+			String Line2 = "Created Age 13 Player (Not Authorized User) is : "+userName;
+			String Line3 = "Created Age 13 Player (Authorized User) password is : 123456";
+			String Line4 = "Created Age 13 Player (Authorized User) email id is : "+emailAddress;
+			String Line5 = "The report can be found here : "+emailReportPathToSend;
+			String Line6 = "Path to the Excel file : "+pathToExcel;
+			
 			System.out.println("=====================================================================");
-			System.out.println("Created Age 12 Player (Not Authorised User) is : "+userName);
-			System.out.println("Created Age 12 Player (Not Authorised User) password is : 123456");
-			System.out.println("Created Age 12 Player (Not Authorised User) email id is : "+emailAddress);
+			System.out.println("Created Age 13 Player (Not Authorised User) is : "+userName);
+			System.out.println("Created Age 13 Player (Not Authorised User) password is : 123456");
+			System.out.println("Created Age 13 Player (Not Authorised User) email id is : "+emailAddress);
 			System.out.println("The report can be found here : "+emailReportPathToSend);
 			System.out.println("Path to the Excel file : "+pathToExcel);
 			System.out.println("=====================================================================");
+			
 			logger.log(LogStatus.INFO,"=====================================================================");
-			logger.log(LogStatus.INFO,"Created Age 12 Player (Not Authorised User) is : "+userName);
-			logger.log(LogStatus.INFO,"Created Age 12 Player (Not Authorised User) password is : 123456");
-			logger.log(LogStatus.INFO,"Created Age 12 Player (Not Authorised User) email id is : "+emailAddress);
+			logger.log(LogStatus.INFO,"Created Age 13 Player (Not Authorised User) is : "+userName);
+			logger.log(LogStatus.INFO,"Created Age 13 Player (Not Authorised User) password is : 123456");
+			logger.log(LogStatus.INFO,"Created Age 13 Player (Not Authorised User) email id is : "+emailAddress);
 			logger.log(LogStatus.INFO,"The report can be found here : "+emailReportPathToSend);
 			logger.log(LogStatus.INFO,"Path to the Excel file : "+pathToExcel);
 			logger.log(LogStatus.INFO,"=====================================================================");
+			
+			writeToTextFile.writeToTempTextFile(Line1,Line2, Line3, Line4, Line5, Line6);
 		}
 		else if(count==2)
 		{
@@ -142,16 +158,16 @@ public class TestCase7
 			excel.writetoexcel();
 			//SendMail.sendMail(driver,subject,mailContent,age,userName,"123456",emailAddress,"Yes");	
 			System.out.println("=====================================================================");
-			System.out.println("Created Age 12 Player (Authorized User) is : "+userName);
-			System.out.println("Created Age 12 Player (Authorized User) password is : 123456");
-			System.out.println("Created Age 12 Player (Authorized User) email id is : "+emailAddress);	
+			System.out.println("Created Age 13 Player (Authorized User) is : "+userName);
+			System.out.println("Created Age 13 Player (Authorized User) password is : 123456");
+			System.out.println("Created Age 13 Player (Authorized User) email id is : "+emailAddress);	
 			System.out.println("The report can be found here : "+emailReportPathToSend);
 			System.out.println("Path to the Excel file : "+pathToExcel);
 			System.out.println("=====================================================================");
 			logger.log(LogStatus.INFO,"=====================================================================");
-			logger.log(LogStatus.INFO,"Created Age 12 Player (Authorized User) is : "+userName);
-			logger.log(LogStatus.INFO,"Created Age 12 Player (Authorized User) password is : 123456");
-			logger.log(LogStatus.INFO,"Created Age 12 Player (Authorized User) email id is : "+emailAddress);	
+			logger.log(LogStatus.INFO,"Created Age 13 Player (Authorized User) is : "+userName);
+			logger.log(LogStatus.INFO,"Created Age 13 Player (Authorized User) password is : 123456");
+			logger.log(LogStatus.INFO,"Created Age 13 Player (Authorized User) email id is : "+emailAddress);	
 			logger.log(LogStatus.INFO,"Path to the Excel file : "+pathToExcel);
 			logger.log(LogStatus.INFO,"=====================================================================");		
 			
